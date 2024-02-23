@@ -16,7 +16,7 @@ public class OdontologoService {
     }
 
     public Odontologo registrar(Odontologo odontologo){
-        
+
         return odontologoIDao.registrar(odontologo);
     }
 
@@ -24,7 +24,5 @@ public class OdontologoService {
 
         return odontologoIDao.listarTodos();
     }
-
-
 
 }
