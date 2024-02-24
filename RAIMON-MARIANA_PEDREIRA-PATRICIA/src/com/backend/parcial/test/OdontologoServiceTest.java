@@ -27,6 +27,24 @@ class OdontologoServiceTest {
 
     }
 
+    @Test
+    void debeListarOdontologoEnMemoria(){
+
+        odontologoService = new OdontologoService(new OdontologoDaoMemoria(new ArrayList<>()));
+
+        Odontologo odontologo = new Odontologo("123", "Valeria","Gomez");
+        Odontologo odontologo2 = new Odontologo("1234", "Pepe","Pereira");
+        Odontologo odontologo3 = new Odontologo("1235", "Jose","Rodriguez");
+
+        odontologoService.registrar(odontologo);
+        odontologoService.registrar(odontologo2);
+        odontologoService.registrar(odontologo3);
+
+        List<Odontologo> odontologosListados= odontologoService.listarOdontologo();
+
+        assertNotNull(odontologosListados);
+        assertEquals(3,odontologosListados.size());
+    }
 
 
 

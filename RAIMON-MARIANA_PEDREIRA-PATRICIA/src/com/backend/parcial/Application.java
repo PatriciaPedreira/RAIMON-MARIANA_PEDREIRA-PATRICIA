@@ -1,4 +1,5 @@
 package com.backend.parcial;
+        import com.backend.parcial.dbconnection.H2Connection;
         import java.sql.Connection;
         import java.sql.DriverManager;
 
@@ -6,9 +7,7 @@ public class Application {
     public static void main(String[] args) {
         Connection connection = null;
         try {
-            Class.forName("org.h2.Driver");
-            connection = DriverManager.getConnection("jdbc:h2:~/bddparcial;INIT=RUNSCRIPT FROM 'create.sql'", "mapa", "mapa");
-
+            connection = H2Connection.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
