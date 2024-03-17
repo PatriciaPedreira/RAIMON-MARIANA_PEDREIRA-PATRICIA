@@ -1,19 +1,17 @@
-package com.backend.ClinicaOdontologica.entity;
+package com.backend.ClinicaOdontologica.dto.salida;
 
-public class Odontologo {
+public class OdontologoSalidaDto {
+
     private int id;
     private String matricula;
     private String nombre;
     private String apellido;
 
-    public Odontologo(int id, String matricula, String nombre, String apellido) {
-        this.id = id;
-        this.matricula = matricula;
-        this.nombre = nombre;
-        this.apellido = apellido;
+    public OdontologoSalidaDto() {
     }
 
-    public Odontologo(String matricula, String nombre, String apellido) {
+    public OdontologoSalidaDto(int id, String matricula, String nombre, String apellido) {
+        this.id = id;
         this.matricula = matricula;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -50,5 +48,4 @@ public class Odontologo {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-
 }
