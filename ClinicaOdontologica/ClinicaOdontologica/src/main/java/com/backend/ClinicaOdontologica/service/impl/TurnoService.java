@@ -1,6 +1,5 @@
 package com.backend.ClinicaOdontologica.service.impl;
 
-import com.backend.ClinicaOdontologica.repository.PacienteRepository;
 import com.backend.ClinicaOdontologica.repository.TurnoRepository;
 import com.backend.ClinicaOdontologica.service.ITurnoService;
 import org.modelmapper.ModelMapper;

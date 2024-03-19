@@ -16,3 +16,4 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 
     Paciente findByDniAndNombre(int dni, String nombre);
 }
+

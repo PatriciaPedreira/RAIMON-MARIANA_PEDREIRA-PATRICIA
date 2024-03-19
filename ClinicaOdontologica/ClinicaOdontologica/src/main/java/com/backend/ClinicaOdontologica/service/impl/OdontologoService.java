@@ -3,9 +3,7 @@ package com.backend.ClinicaOdontologica.service.impl;
 
 import com.backend.ClinicaOdontologica.dto.entrada.OdontologoEntradaDto;
 import com.backend.ClinicaOdontologica.dto.salida.OdontologoSalidaDto;
-import com.backend.ClinicaOdontologica.dto.salida.PacienteSalidaDto;
 import com.backend.ClinicaOdontologica.entity.Odontologo;
-import com.backend.ClinicaOdontologica.entity.Paciente;
 import com.backend.ClinicaOdontologica.repository.OdontologoRepository;
 import com.backend.ClinicaOdontologica.service.IOdontologoService;
 import com.backend.ClinicaOdontologica.utils.JsonPrinter;
