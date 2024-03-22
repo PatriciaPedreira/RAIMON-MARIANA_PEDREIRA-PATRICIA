@@ -3,7 +3,20 @@ package com.backend.ClinicaOdontologica.dto.salida;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
-
+//Para la ENTRADA
+//OdontologoTurnoEntradaDto.java
+//private String Nombre
+//private String Apellido
+//
+//
+//PacienteTurnoEntradaDto.java
+//private String Nombre
+//private String Apellido
+//private int dni
+//
+//TurnoEntradaDto.java
+//private OdontologoTurnoEntradaDto odontologoTurnoEntradaDto
+//private PacienteTurnoEntradaDto pacienteTurnoEntradaDto
 public class TurnoSalidaDto {
     private Long id;
     private PacienteSalidaDto pacienteSalidaDto;

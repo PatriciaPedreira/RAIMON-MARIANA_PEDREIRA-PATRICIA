@@ -1,8 +1,6 @@
 package com.backend.ClinicaOdontologica.dto.entrada;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
@@ -23,7 +21,6 @@ public class PacienteEntradaDto {
     @FutureOrPresent(message = "La fecha no puede ser anterior al día de hoy")
     @NotNull(message = "Debe especificarse la fecha de ingreso del paciente")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    //@JsonProperty("date")
     private LocalDate fechaIngreso;
 
     @NotNull(message = "El domicilio del paciente no puede ser nulo")
