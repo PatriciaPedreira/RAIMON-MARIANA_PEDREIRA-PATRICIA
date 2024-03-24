@@ -8,13 +8,13 @@ import com.backend.ClinicaOdontologica.exceptions.ResourceNotFoundException;
 import java.util.List;
 
 public interface ITurnoService {
-    TurnoSalidaDto registrarTurno(TurnoEntradaDto turnoEntradaDto) throws BadRequestException, ResourceNotFoundException;
+    TurnoSalidaDto registrarTurno(TurnoEntradaDto turnoEntradaDto) throws BadRequestException;
 
     List<TurnoSalidaDto> listarTurnos();
 
     TurnoSalidaDto buscarTurnoPorId(Long id);
 
-    void eliminarTurno(Long id);
+    void eliminarTurno(Long id) throws ResourceNotFoundException;
 
     TurnoSalidaDto actualizarTurno(TurnoEntradaDto turnoEntradaDto, Long id);
 

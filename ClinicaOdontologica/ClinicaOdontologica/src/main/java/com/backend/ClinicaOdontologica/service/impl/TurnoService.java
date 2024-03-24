@@ -6,8 +6,10 @@ import com.backend.ClinicaOdontologica.dto.salida.PacienteSalidaDto;
 import com.backend.ClinicaOdontologica.dto.salida.TurnoSalidaDto;
 import com.backend.ClinicaOdontologica.entity.Turno;
 import com.backend.ClinicaOdontologica.exceptions.BadRequestException;
+import com.backend.ClinicaOdontologica.exceptions.ResourceNotFoundException;
 import com.backend.ClinicaOdontologica.repository.TurnoRepository;
 import com.backend.ClinicaOdontologica.service.ITurnoService;
+import com.backend.ClinicaOdontologica.utils.JsonPrinter;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +56,7 @@ public class TurnoService implements ITurnoService {
         } else {
             Turno turnoNuevo = turnoRepository.save(modelMapper.map(turnoEntradaDto, Turno.class));
             turnoSalidaDto = entidadADtoSalida(turnoNuevo, paciente, odontologo);
-            LOGGER.info("Nuevo turno registrado con exito: {}", turnoSalidaDto);
+            LOGGER.info("Nuevo turno registrado con exito: {}", JsonPrinter.toString(turnoSalidaDto));
         }
 
 
@@ -63,21 +65,30 @@ public class TurnoService implements ITurnoService {
 
     @Override
     public List<TurnoSalidaDto> listarTurnos() {
+
         return null;
     }
 
     @Override
     public TurnoSalidaDto buscarTurnoPorId(Long id) {
+
         return null;
     }
 
     @Override
-    public void eliminarTurno(Long id) {
+    public void eliminarTurno(Long id) throws ResourceNotFoundException {
+        if (buscarTurnoPorId(id) != null){
+            turnoRepository.deleteById(id);
+            LOGGER.warn("Se ha eliminado el Turno con id {}", id);
+
+        }else
+            throw new ResourceNotFoundException("No existe registro del Turno con id " + id);
 
     }
 
     @Override
     public TurnoSalidaDto actualizarTurno(TurnoEntradaDto turnoEntradaDto, Long id) {
+
         return null;
     }
 

@@ -28,8 +28,8 @@ public class OdontologoController {
 
     //PUT
     @PutMapping("actualizar/{id}")
-    public ResponseEntity<OdontologoSalidaDto> actualizarOdontologo(@Valid @RequestBody OdontologoEntradaDto odontologo, @PathVariable Long id) {
-        return null; //odontologoService.actualizar(odontologo, id);
+    public ResponseEntity<OdontologoSalidaDto> actualizarOdontologo(@Valid @RequestBody OdontologoEntradaDto odontologo, @PathVariable Long id) throws ResourceNotFoundException {
+        return new ResponseEntity<>(odontologoService.actualizarOdontologo(odontologo,id),HttpStatus.OK);
     }
 
     //GET
@@ -52,17 +52,3 @@ public class OdontologoController {
     }
 
 }
-
-/*Nuestro chapter lead para esta etapa nos pide crear una api para gestionar las
-operaciones de los odontólogos. (----> IDEM PacienteController <----)
-La API nos deberá permitir:
-● Buscar odontólogos por id
-○ PATH: /odontologos/{id} Método : GET
-● Registrar un nuevo odontólogo
-○ PATH: /odontologos Metodo: POST
-● Actualizar los datos de un odontólogo ya registrado
-○ PATH : /odontologos Método : PUT
-● Eliminar un odontólogo por id
-○ PATH: /odontologos/{id} Metodo: DELETE
-● Listar todos los odontologos
-○ PATH: /odontologos Método : GET*/

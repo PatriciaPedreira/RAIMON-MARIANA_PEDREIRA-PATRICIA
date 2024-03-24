@@ -43,7 +43,7 @@ class PacienteServiceTest {
 
     @Test
     @Order(2)
-    void deberiaEliminarseElPacienteConId1(){
+    void deberiaEliminarseElPacienteConId1_yLanzarExcepcionAlIntentarEliminarloNuevamente(){
 
         try{
             pacienteService.eliminarPaciente(1L);
@@ -57,8 +57,6 @@ class PacienteServiceTest {
     /* @Test
     @Order(2)
     void deberiaEliminarseElPacienteConId1() {
-
-
         assertDoesNotThrow(() -> pacienteService.eliminarPaciente(1L));
     }*/
 

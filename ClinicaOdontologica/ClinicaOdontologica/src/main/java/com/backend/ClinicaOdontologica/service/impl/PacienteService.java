@@ -37,7 +37,7 @@ public class PacienteService implements IPacienteService {
         //transformamos la entidad obtenida en salidaDto
         PacienteSalidaDto pacienteSalidaDto = modelMapper.map(pacienteEntidaConId, PacienteSalidaDto.class);
         //Logueamos lo que sale
-        LOGGER.info("PacienteSalidaDto: {}",  JsonPrinter.toString(pacienteSalidaDto));
+        LOGGER.info("Paciente Registrado: {}",  JsonPrinter.toString(pacienteSalidaDto));
         return pacienteSalidaDto;
     }
 
@@ -63,7 +63,7 @@ public class PacienteService implements IPacienteService {
             pacienteEncontrado = modelMapper.map(pacienteBuscado, PacienteSalidaDto.class);
             LOGGER.info("Paciente encontrado: {}", JsonPrinter.toString(pacienteEncontrado));
 
-        } else LOGGER.error("No se encuentra registrado el paciente con id {} en la base de datos", id);
+        } else LOGGER.error("No se enconto el paciente con id {} en la base de datos", id);
 
 
         return pacienteEncontrado;
@@ -76,8 +76,7 @@ public class PacienteService implements IPacienteService {
             LOGGER.warn("Se ha eliminado el paciente con id {}", id);
 
         }else {
-            //LOGGER.error("No se ha encontrado el paciente con id {}", id);
-            throw new ResourceNotFoundException("No existe registro de paciente con id " + id);
+            throw new ResourceNotFoundException("No existe registro del paciente con id " + id);
         }
 
     }
@@ -94,6 +93,7 @@ public class PacienteService implements IPacienteService {
             pacienteAActualizar.setApellido(pacienteRecibido.getApellido());
             pacienteAActualizar.setDni(pacienteRecibido.getDni());
             pacienteAActualizar.setFechaIngreso(pacienteRecibido.getFechaIngreso());
+            pacienteAActualizar.getDomicilio().setCalle(pacienteRecibido.getDomicilio().getCalle());
             pacienteAActualizar.getDomicilio().setNumero(pacienteRecibido.getDomicilio().getNumero());
             pacienteAActualizar.getDomicilio().setLocalidad(pacienteRecibido.getDomicilio().getLocalidad());
             pacienteAActualizar.getDomicilio().setProvincia(pacienteRecibido.getDomicilio().getProvincia());
@@ -111,7 +111,6 @@ public class PacienteService implements IPacienteService {
 
         return pacienteSalidaDto;
     }
-
 
     private void configureMapping(){
         modelMapper.typeMap(PacienteEntradaDto.class, Paciente.class)
