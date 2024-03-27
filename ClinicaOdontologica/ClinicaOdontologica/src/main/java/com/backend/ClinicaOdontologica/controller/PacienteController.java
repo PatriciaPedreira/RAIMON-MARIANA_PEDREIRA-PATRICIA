@@ -16,11 +16,17 @@ import java.util.List;
 @RequestMapping("/pacientes")
 public class PacienteController {
 
-    private IPacienteService pacienteService;
+    private final IPacienteService pacienteService;
 
     public PacienteController(IPacienteService pacienteService) {
 
         this.pacienteService = pacienteService;
+    }
+
+    //POST
+    @PostMapping("/registrar")
+    public ResponseEntity<PacienteSalidaDto> registrarPaciente(@RequestBody @Valid PacienteEntradaDto paciente){
+        return new ResponseEntity<>(pacienteService.registrarPaciente(paciente), HttpStatus.CREATED);
     }
 
     //GET
@@ -32,12 +38,6 @@ public class PacienteController {
     @GetMapping("/{id}") //localhost:8080/pacientes/x
     public ResponseEntity<PacienteSalidaDto> buscarPacientePorId(@PathVariable Long id){
         return new ResponseEntity<>(pacienteService.buscarPacientePorId(id), HttpStatus.OK);
-    }
-
-    //POST
-    @PostMapping("/registrar")
-    public ResponseEntity<PacienteSalidaDto> registrarPaciente(@RequestBody @Valid PacienteEntradaDto paciente){
-        return new ResponseEntity<>(pacienteService.registrarPaciente(paciente), HttpStatus.CREATED);
     }
 
     //PUT

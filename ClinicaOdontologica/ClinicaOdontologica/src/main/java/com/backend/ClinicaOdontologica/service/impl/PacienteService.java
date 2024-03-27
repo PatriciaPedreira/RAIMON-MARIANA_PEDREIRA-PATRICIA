@@ -32,12 +32,13 @@ public class PacienteService implements IPacienteService {
         LOGGER.info("PacienteEntradaDto: {}", JsonPrinter.toString(paciente));
         //convertimos mediante el mapper de dtoEntrada a entidad
         Paciente pacienteEntidad = modelMapper.map(paciente, Paciente.class);
-        //mandamos a persistir a la capa dao y obtenemos una entidad con ID
-        Paciente pacienteEntidaConId = pacienteRepository.save(pacienteEntidad);
+        //mandamos a persistir a la capa Repository y obtenemos una entidad con ID
+        Paciente pacienteEntidadConId = pacienteRepository.save(pacienteEntidad);
         //transformamos la entidad obtenida en salidaDto
-        PacienteSalidaDto pacienteSalidaDto = modelMapper.map(pacienteEntidaConId, PacienteSalidaDto.class);
+        PacienteSalidaDto pacienteSalidaDto = modelMapper.map(pacienteEntidadConId, PacienteSalidaDto.class);
         //Logueamos lo que sale
         LOGGER.info("Paciente Registrado: {}",  JsonPrinter.toString(pacienteSalidaDto));
+
         return pacienteSalidaDto;
     }
 
@@ -70,18 +71,6 @@ public class PacienteService implements IPacienteService {
     }
 
     @Override
-    public void eliminarPaciente(Long id) throws ResourceNotFoundException {
-        if (buscarPacientePorId(id) != null){
-            pacienteRepository.deleteById(id);
-            LOGGER.warn("Se ha eliminado el paciente con id {}", id);
-
-        }else {
-            throw new ResourceNotFoundException("No existe registro del paciente con id " + id);
-        }
-
-    }
-
-    @Override
     public PacienteSalidaDto actualizarPaciente(PacienteEntradaDto pacienteEntradaDto, Long id) throws ResourceNotFoundException{
         Paciente pacienteRecibido = modelMapper.map(pacienteEntradaDto, Paciente.class);
         Paciente pacienteAActualizar = pacienteRepository.findById(id).orElse(null);
@@ -110,6 +99,18 @@ public class PacienteService implements IPacienteService {
 
 
         return pacienteSalidaDto;
+    }
+
+    @Override
+    public void eliminarPaciente(Long id) throws ResourceNotFoundException {
+        if (buscarPacientePorId(id) != null){
+            pacienteRepository.deleteById(id);
+            LOGGER.warn("Se ha eliminado el paciente con id {}", id);
+
+        }else {
+            throw new ResourceNotFoundException("No existe registro del paciente con id " + id);
+        }
+
     }
 
     private void configureMapping(){

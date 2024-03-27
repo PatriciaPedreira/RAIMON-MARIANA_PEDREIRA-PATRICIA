@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/odontologos")
 public class OdontologoController {
+
     private final OdontologoService odontologoService;
 
     public OdontologoController(OdontologoService odontologoService) {
@@ -26,12 +27,6 @@ public class OdontologoController {
         return new ResponseEntity<>(odontologoService.registrarOdontologo(odontologo), HttpStatus.CREATED);
     }
 
-    //PUT
-    @PutMapping("actualizar/{id}")
-    public ResponseEntity<OdontologoSalidaDto> actualizarOdontologo(@Valid @RequestBody OdontologoEntradaDto odontologo, @PathVariable Long id) throws ResourceNotFoundException {
-        return new ResponseEntity<>(odontologoService.actualizarOdontologo(odontologo,id),HttpStatus.OK);
-    }
-
     //GET
     @GetMapping("{id}")
     public ResponseEntity<OdontologoSalidaDto> obtenerOdontologoPorId(@PathVariable Long id) {
@@ -41,6 +36,12 @@ public class OdontologoController {
     @GetMapping()
     public ResponseEntity<List<OdontologoSalidaDto>> listarOdontologos() {
         return new ResponseEntity<>(odontologoService.listarOdontologos(), HttpStatus.OK);
+    }
+
+    //PUT
+    @PutMapping("actualizar/{id}")
+    public ResponseEntity<OdontologoSalidaDto> actualizarOdontologo(@Valid @RequestBody OdontologoEntradaDto odontologo, @PathVariable Long id) throws ResourceNotFoundException {
+        return new ResponseEntity<>(odontologoService.actualizarOdontologo(odontologo,id),HttpStatus.OK);
     }
 
     //DELETE
