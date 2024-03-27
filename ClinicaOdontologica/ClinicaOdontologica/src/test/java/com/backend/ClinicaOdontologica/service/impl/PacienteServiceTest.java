@@ -54,11 +54,6 @@ class PacienteServiceTest {
         assertThrows(ResourceNotFoundException.class, () -> pacienteService.eliminarPaciente(1L));
 
     }
-    /* @Test
-    @Order(2)
-    void deberiaEliminarseElPacienteConId1() {
-        assertDoesNotThrow(() -> pacienteService.eliminarPaciente(1L));
-    }*/
 
     @Test
     @Order(3)
