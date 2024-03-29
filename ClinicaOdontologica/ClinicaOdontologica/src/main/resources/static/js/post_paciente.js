@@ -1,63 +1,39 @@
-window.addEventListener('load', function () {
+document.getElementById('formularioPaciente').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-    const formulario = document.querySelector('#add_new_paciente');
-
-    formulario.addEventListener('submit', function (event) {
-
-        const formData = {
-            nombre: document.querySelector('#nombre').value,
-            apellido: document.querySelector('#apellido').value,
-            dni: document.querySelector('#dni').value,
-            domicilio:{
-                       calle:document.querySelector('#calle').value,
-                       numero:document.querySelector('#numero').value,
-                       localidad:document.querySelector('#localidad').value,
-                       provincia:document.querySelector('#provincia').value,
-                       },
-            fechaIngreso: document.querySelector('#fechaIngreso').value,
-        };
-
-        const url = '/registrar';
-        const settings = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
+    const formData = new FormData(this);
+    const pacienteEntradaDto = {
+        nombre: formData.get('nombre'),
+        apellido: formData.get('apellido'),
+        dni: formData.get('dni'),
+        fechaIngreso: formData.get('fechaIngreso'),
+        domicilioEntradaDto: {
+            calle: formData.get('calle'),
+            numero: formData.get('numero'),
+            localidad: formData.get('localidad'),
+            provincia: formData.get('provincia')
         }
+    };
 
-        fetch(url, settings)
-            .then(response => response.json())
-            .then(data => {
-                let successAlert = '<div class="alert alert-success alert-dismissible">' +
-                    '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                    '<strong></strong> Paciente registrado </div>'
-
-                document.querySelector('#response').innerHTML = successAlert;
-                document.querySelector('#response').style.display = "block";
-                resetUploadForm();
-
-            })
-            .catch(error => {
-                let errorAlert = '<div class="alert alert-danger alert-dismissible">' +
-                    '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                    '<strong> Error intente nuevamente</strong> </div>'
-
-                document.querySelector('#response').innerHTML = errorAlert;
-                document.querySelector('#response').style.display = "block";
-                resetUploadForm();
-            })
+    fetch(http://localhost:8080/pacientes/registrar, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(pacienteEntradaDto)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error al enviar los datos.');
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert('Paciente guardado exitosamente');
+        console.log('Respuesta del servidor:', data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al registrar el paciente. Por favor, inténtelo de nuevo más tarde.');
     });
-
-    function resetUploadForm(){
-        document.querySelector('#nombre').value = "";
-        document.querySelector('#apellido').value = "";
-        document.querySelector('#calle').value  = "";
-        document.querySelector('#numero').value = "";
-        document.querySelector('#localidad').value  = "";
-        document.querySelector('#provincia').value = "";
-        document.querySelector('#dni').value  = "";
-        document.querySelector('#fechaIngreso').value = "";
-}
-
 });

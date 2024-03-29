@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+
+@CrossOrigin (origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/turnos")
 public class TurnoController {
@@ -44,7 +46,7 @@ public class TurnoController {
 
     //PUT
     @PutMapping("/actualizar/{id}")//localhost:8080/turnos/actualizar/x)
-    public ResponseEntity<TurnoSalidaDto> actualizarTurno(@Valid @RequestBody TurnoEntradaDto turno, @PathVariable Long id) throws ResourceNotFoundException {
+    public ResponseEntity<TurnoSalidaDto> actualizarTurno(@Valid @RequestBody TurnoEntradaDto turno, @PathVariable Long id) throws ResourceNotFoundException, BadRequestException {
         return new ResponseEntity<>(turnoService.actualizarTurno(turno, id), HttpStatus.OK);
     }
 
