@@ -91,18 +91,22 @@ public class TurnoService implements ITurnoService {
 
     @Override
     public TurnoSalidaDto actualizarTurno(TurnoEntradaDto turnoEntradaDto, Long id) throws ResourceNotFoundException{
-    TurnoSalidaDto turnoSalidaDto;
-        Turno turnoExistente = turnoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Turno no encontrado con el ID: " + id));
 
+        TurnoSalidaDto turnoSalidaDto;
+
+        Turno turnoExistente = turnoRepository.findById(id).orElse(null);
         PacienteSalidaDto paciente = pacienteService.buscarPacientePorId(turnoEntradaDto.getPacienteId());
         OdontologoSalidaDto odontologo = odontologoService.buscarOdontologoPorId(turnoEntradaDto.getOdontologoId());
 
+        String turnoNoExiste = "No se encontró el turno con ID: " + id;
         String pacienteNoExiste = "No se encontró el paciente con ID: " + turnoEntradaDto.getPacienteId();
         String odontologoNoExiste = "No se encontró el odontólogo con ID: " + turnoEntradaDto.getOdontologoId();
 
-        if(paciente == null || odontologo == null){
-            if (paciente == null) {
+        if(turnoExistente == null || paciente == null || odontologo == null){
+            if(turnoExistente == null){
+                LOGGER.error(turnoNoExiste);
+                throw new ResourceNotFoundException(turnoNoExiste);
+            } else if (paciente == null) {
                 LOGGER.error(pacienteNoExiste);
                 throw new ResourceNotFoundException(pacienteNoExiste);
             } else {
@@ -114,7 +118,7 @@ public class TurnoService implements ITurnoService {
             turnoExistente.setPaciente(modelMapper.map(paciente, Paciente.class));
             turnoExistente.setOdontologo(modelMapper.map(odontologo, Odontologo.class));
             turnoExistente.setFechaYHora(turnoEntradaDto.getFechaYHora());
-            //Guardar y el turno actualizado
+            //Guarda el turno actualizado
             Turno turnoActualizado = turnoRepository.save(turnoExistente);
             //Convertir el turno actualizado a un DTO de salida y devolverlo
             turnoSalidaDto = entidadADtoSalida(turnoActualizado, paciente, odontologo);
